@@ -43,7 +43,7 @@ html, body {
 
 .content-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 2px;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
@@ -61,7 +61,7 @@ html, body {
 
 .pdf-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 2px;
   padding: 20px;
 }
 
