@@ -25,7 +25,7 @@
   <button onclick="startVragenlijst()">Start de vragenlijst</button>
 </div>
   <!-- Stap 1 -->
-  <div id="step1" class="step active">
+  <div id="step1" class="step">
     <h3>Welke is van toepassing op het kind?</h3>
     <button onclick="next('1talig')">Eentalig</button>
     <button onclick="next('simultaan')">Simultaan meertalig <i>(Kinderen die vanaf geboorte meerdere talen horen en gebruiken)</i></button>
@@ -90,6 +90,7 @@ function startVragenlijst() {
   document.getElementById("startScreen").classList.remove("active");
   document.getElementById("step1").classList.add("active");
 }
+
     function next(choice) {
       taal = choice;
       showStep('step2');
