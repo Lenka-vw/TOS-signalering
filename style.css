@@ -88,10 +88,8 @@ html, body {
 }
 #taalAdviesContainer .poster-afbeelding {
   height: 50vh;
-  width: auto; /* of 100% als je het scherm wilt vullen in de breedte */
+  width: 100%; /* of 100% als je het scherm wilt vullen in de breedte */
   object-fit: cover; /* vult de ruimte netjes zonder vervormen */
-  display: block;
-  margin: 0 auto; /* centreert de afbeelding horizontaal */
   transition: transform 0.3s ease; /* zorgt voor vloeiende animatie */
   cursor: pointer;
 }
