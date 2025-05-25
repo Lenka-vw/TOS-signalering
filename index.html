@@ -13,7 +13,7 @@
       <div class="content">
        
         <div class="typeform-container">
-          <div id="taalAdviesContainer">
+        <div id="taalAdviesContainer">
   <style>
     #taalAdviesContainer .step {
       display: none;
@@ -23,46 +23,48 @@
     }
     #taalAdviesContainer button {
       margin-top: 10px;
+      display: block;
     }
   </style>
 
-  <!-- Stap 1: Kies taaltype -->
+  <!-- Stap 1 -->
   <div id="step1" class="step active">
-    <h3>Kies taaltype</h3>
+    <h3>Wat is de taalomgeving van het kind?</h3>
     <button onclick="next('1talig')">Eentalig</button>
     <button onclick="next('simultaan')">Simultaan meertalig</button>
     <button onclick="next('successief')">Successief meertalig</button>
   </div>
 
-  <!-- Stap 2: Kies Siméa -->
+  <!-- Stap 2 -->
   <div id="step2" class="step">
-    <h3>Siméa-indicatie</h3>
-    <button onclick="nextSim(0)">Geen twijfel/onvoldoende</button>
-    <button onclick="nextSim(1)">Twijfel</button>
-    <button onclick="nextSim(2)">Onvoldoende</button>
+    <h3>Hoe vaak is er sprake van twijfel of onvoldoende bij Siméa?</h3>
+    <button onclick="nextSim(0)">0 keer twijfel of onvoldoende</button>
+    <button onclick="nextSim(1)">1 keer twijfel of onvoldoende</button>
+    <button onclick="nextSim(2)">2 keer twijfel of onvoldoende</button>
   </div>
 
-  <!-- Stap 3: Leeftijd -->
+  <!-- Stap 3 -->
   <div id="step3" class="step">
     <h3>Wat is de leeftijd van het kind?</h3>
-    <button onclick="nextAge('3-4')">3-4 jaar</button>
-    <button onclick="nextAge('4-6')">4-6 jaar</button>
+    <button onclick="nextAge('3-4')">3;0 – 4;0 jaar</button>
+    <button onclick="nextAge('4-6')">4;0 – 6;0 jaar</button>
   </div>
 
-  <!-- Stap 4: ELS -->
+  <!-- Stap 4 -->
   <div id="step4" class="step">
-    <h3>ELS-score</h3>
-    <label><input type="radio" name="els" value="ge24"> ≥ 24 (3-4 jaar)</label><br>
-    <label><input type="radio" name="els" value="ge25"> ≥ 25 (4-6 jaar)</label><br>
-    <label><input type="radio" name="els" value="lt"> Lager</label><br>
+    <h3>Wat is de ELS-score?</h3>
+    <label><input type="radio" name="els" value="ge24"> ≥ 24 (3;0–4;0 jaar)</label><br>
+    <label><input type="radio" name="els" value="lt24"> < 24 (3;0–4;0 jaar)</label><br>
+    <label><input type="radio" name="els" value="ge25"> ≥ 25 (4;0–6;0 jaar)</label><br>
+    <label><input type="radio" name="els" value="lt25"> < 25 (4;0–6;0 jaar)</label><br>
     <button onclick="checkELS()">Volgende</button>
   </div>
 
-  <!-- Stap 5: ALDeQ -->
+  <!-- Stap 5 -->
   <div id="step5" class="step">
-    <h3>ALDeQ-score</h3>
+    <h3>Wat is de ALDeQ-score?</h3>
     <label><input type="radio" name="aldeq" value="gt71"> > 71</label><br>
-    <label><input type="radio" name="aldeq" value="btw64_71"> 64–71</label><br>
+    <label><input type="radio" name="aldeq" value="btw64_71"> Tussen 64 – 71</label><br>
     <label><input type="radio" name="aldeq" value="lt64"> < 64</label><br>
     <button onclick="checkALDeQ()">Toon advies</button>
   </div>
@@ -71,7 +73,6 @@
   <div id="advies" class="step"></div>
 
   <script>
-    // Alle JavaScript inline zodat het werkt in een container zonder aparte bestanden
     let taal = "";
     let sim = 0;
     let leeftijd = "";
@@ -146,7 +147,7 @@
     }
 
     function showAdviesViaELS() {
-      if ((leeftijd === "3-4" && elsScore === "ge24") || (leeftijd === "4-6" && elsScore === "ge25")) {
+      if ((elsScore === "ge24" && leeftijd === "3-4") || (elsScore === "ge25" && leeftijd === "4-6")) {
         if (sim === 1) {
           showAdvies("Onderwijstraject overwegen bij weinig vooruitgang na een half jaar. Siméa en ELS opnieuw invullen.");
         } else {
@@ -200,10 +201,6 @@
   </script>
 </div>
 
-        </div>
-        
-      </div>
-    </div>
     <div class="content-container">
       <div class="content">
         <p>Ziet groepsleerkracht in de observatieperiode (6-8 weken) nadat de kleuter op school gestart is signalen die aanleiding geven om taal, spraak of communicatief functioneren verder te onderzoeken.Beantwoord dan de vragen en ontdek direct welke acties je kunt overwegen in het signaleringsproces.  </p>
