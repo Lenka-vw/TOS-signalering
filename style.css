@@ -88,11 +88,8 @@ html, body {
 }
 #taalAdviesContainer.poster-afbeelding {
   height: 50vh;
-  width: auto; /
-  object-fit: cover; /* vult de ruimte netjes zonder vervormen */
-  transition: transform 0.3s ease; /* zorgt voor vloeiende animatie */
-  cursor: pointer;
-}
-#taalAdviesContainer.banner-afbeelding:hover {
-  transform: scale(2); 
+  width: auto; 
+  object-fit: cover; 
+  display: block;
+  margin: 0 auto;
 }
