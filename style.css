@@ -94,5 +94,5 @@ html, body {
   cursor: pointer;
 }
 #taalAdviesContainer .banner-afbeelding:hover {
-  transform: scale(1.05); /* vergroot de afbeelding met 5% */
+  transform: scale(2); 
 }
