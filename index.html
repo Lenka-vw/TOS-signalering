@@ -15,16 +15,10 @@
         <div class="typeform-container">
         <div id="taalAdviesContainer">
   <style>
-    #taalAdviesContainer .step {
-      display: none;
-    }
-    #taalAdviesContainer .step.active {
-      display: block;
-    }
-    #taalAdviesContainer button {
-      margin-top: 10px;
-      display: block;
-    }
+    #taalAdviesContainer .step { display: none; }
+    #taalAdviesContainer .step.active { display: block; }
+    #taalAdviesContainer button { margin-top: 10px; display: block; }
+    #taalAdviesContainer .nav-buttons { margin-top: 20px; }
   </style>
 
   <!-- Stap 1 -->
@@ -41,6 +35,9 @@
     <button onclick="nextSim(0)">0 keer twijfel of onvoldoende</button>
     <button onclick="nextSim(1)">1 keer twijfel of onvoldoende</button>
     <button onclick="nextSim(2)">2 keer twijfel of onvoldoende</button>
+    <div class="nav-buttons">
+      <button onclick="goBack('step2')">Terug</button>
+    </div>
   </div>
 
   <!-- Stap 3 -->
@@ -48,6 +45,9 @@
     <h3>Wat is de leeftijd van het kind?</h3>
     <button onclick="nextAge('3-4')">3;0 – 4;0 jaar</button>
     <button onclick="nextAge('4-6')">4;0 – 6;0 jaar</button>
+    <div class="nav-buttons">
+      <button onclick="goBack('step3')">Terug</button>
+    </div>
   </div>
 
   <!-- Stap 4 -->
@@ -58,6 +58,9 @@
     <label><input type="radio" name="els" value="ge25"> ≥ 25 (4;0–6;0 jaar)</label><br>
     <label><input type="radio" name="els" value="lt25"> < 25 (4;0–6;0 jaar)</label><br>
     <button onclick="checkELS()">Volgende</button>
+    <div class="nav-buttons">
+      <button onclick="goBack('step4')">Terug</button>
+    </div>
   </div>
 
   <!-- Stap 5 -->
@@ -67,6 +70,9 @@
     <label><input type="radio" name="aldeq" value="btw64_71"> Tussen 64 – 71</label><br>
     <label><input type="radio" name="aldeq" value="lt64"> < 64</label><br>
     <button onclick="checkALDeQ()">Toon advies</button>
+    <div class="nav-buttons">
+      <button onclick="goBack('step5')">Terug</button>
+    </div>
   </div>
 
   <!-- Advies -->
@@ -80,125 +86,108 @@
 
     function next(choice) {
       taal = choice;
-      document.getElementById("step1").classList.remove("active");
-      document.getElementById("step2").classList.add("active");
+      showStep('step2');
     }
 
     function nextSim(value) {
       sim = value;
-      document.getElementById("step2").classList.remove("active");
-
       if (sim === 0) {
         showAdvies("Geen 'twijfel' of 'onvoldoende'. Overweeg heroverweging na 6 maanden.");
       } else {
-        if (taal === "successief") {
-          document.getElementById("step5").classList.add("active");
-        } else {
-          document.getElementById("step3").classList.add("active");
-        }
+        if (taal === "successief") showStep('step5');
+        else showStep('step3');
       }
     }
 
     function nextAge(val) {
       leeftijd = val;
-      document.getElementById("step3").classList.remove("active");
-      document.getElementById("step4").classList.add("active");
+      showStep('step4');
     }
 
     function checkELS() {
       const selected = document.querySelector('input[name="els"]:checked');
-      if (!selected) {
-        alert("Selecteer een ELS-score.");
-        return;
-      }
+      if (!selected) return alert("Selecteer een ELS-score.");
       elsScore = selected.value;
-      document.getElementById("step4").classList.remove("active");
 
-      if (taal === "1talig") {
-        showAdviesViaELS();
-      } else if (taal === "simultaan") {
-        document.getElementById("step5").classList.add("active");
-      }
+      if (taal === "1talig") showAdviesViaELS();
+      else showStep('step5');
     }
 
     function checkALDeQ() {
       const selected = document.querySelector('input[name="aldeq"]:checked');
-      if (!selected) {
-        alert("Selecteer een ALDeQ-score.");
-        return;
-      }
+      if (!selected) return alert("Selecteer een ALDeQ-score.");
       const score = selected.value;
 
       if (sim === 1) {
-        if (score === "gt71") {
+        if (score === "gt71")
           showAdvies("Onderwijstraject overwegen bij weinig vooruitgang na een half jaar. Siméa en ELS opnieuw invullen.");
-        } else if (score === "btw64_71") {
+        else if (score === "btw64_71")
           showAdvies("Onderwijstraject overwegen. Logopedische screening GGD of eerstelijns praktijk overwegen.");
-        } else {
+        else
           showAdvies("Onderwijstraject + zorgtraject overwegen (mogelijke TOS).");
-        }
       } else if (sim === 2) {
-        if (score === "gt71") {
+        if (score === "gt71")
           showAdvies("Onderwijstraject overwegen. Logopedische screening GGD of eerstelijns praktijk overwegen.");
-        } else {
+        else
           showAdvies("Onderwijstraject + zorgtraject overwegen.");
-        }
       }
     }
 
     function showAdviesViaELS() {
-      if ((elsScore === "ge24" && leeftijd === "3-4") || (elsScore === "ge25" && leeftijd === "4-6")) {
-        if (sim === 1) {
+      const isHoog = (elsScore === "ge24" && leeftijd === "3-4") || (elsScore === "ge25" && leeftijd === "4-6");
+      if (isHoog) {
+        if (sim === 1)
           showAdvies("Onderwijstraject overwegen bij weinig vooruitgang na een half jaar. Siméa en ELS opnieuw invullen.");
-        } else {
+        else
           showAdvies("Onderwijstraject + zorgtraject overwegen.");
-        }
       } else {
-        if (sim === 1) {
+        if (sim === 1)
           showAdvies("Onderwijstraject overwegen. Logopedische screening GGD of eerstelijns praktijk overwegen.");
-        } else {
+        else
           showAdvies("Onderwijstraject + zorgtraject overwegen.");
-        }
       }
     }
 
     function showAdvies(text) {
-      document.querySelectorAll("#taalAdviesContainer .step").forEach(s => s.classList.remove("active"));
+      hideAll();
       const adv = document.getElementById("advies");
       adv.classList.add("active");
       adv.innerHTML = `
         <strong>Advies:</strong><br>${text}<br><br>
-        <button onclick="goBack('advies')">Terug naar start</button>
+        <button onclick="restart()">Opnieuw beginnen</button>
       `;
     }
 
+    function showStep(stepId) {
+      hideAll();
+      document.getElementById(stepId).classList.add("active");
+    }
+
+    function hideAll() {
+      document.querySelectorAll("#taalAdviesContainer .step").forEach(s => s.classList.remove("active"));
+    }
+
+    function restart() {
+      taal = ""; sim = 0; leeftijd = ""; elsScore = "";
+      showStep("step1");
+    }
+
     function goBack(fromStep) {
-      document.getElementById(fromStep).classList.remove("active");
+      hideAll();
       switch (fromStep) {
-        case 'step2':
-          document.getElementById("step1").classList.add("active");
-          break;
-        case 'step3':
-          document.getElementById("step2").classList.add("active");
-          break;
-        case 'step4':
-          document.getElementById("step3").classList.add("active");
-          break;
+        case 'step2': showStep('step1'); break;
+        case 'step3': showStep('step2'); break;
+        case 'step4': showStep('step3'); break;
         case 'step5':
-          if (taal === "successief") {
-            document.getElementById("step2").classList.add("active");
-          } else if (taal === "simultaan") {
-            document.getElementById("step4").classList.add("active");
-          }
+          if (taal === "successief") showStep('step2');
+          else showStep('step4');
           break;
-        case 'advies':
-          document.getElementById("step1").classList.add("active");
-          break;
-        default:
-          alert("Kan niet terug.");
+        default: showStep('step1');
       }
     }
   </script>
+
+
 </div>
         </div>
       </div>
