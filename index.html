@@ -23,18 +23,18 @@
 
   <!-- Stap 1 -->
   <div id="step1" class="step active">
-    <h3>Wat is de taalomgeving van het kind?</h3>
+    <h3>Welke is van toepassing op het kind?</h3>
     <button onclick="next('1talig')">Eentalig</button>
-    <button onclick="next('simultaan')">Simultaan meertalig</button>
-    <button onclick="next('successief')">Successief meertalig</button>
+    <button onclick="next('simultaan')">Simultaan meertalig <i>(Kinderen die vanaf geboorte meerdere talen horen en gebruiken)</i></button>
+    <button onclick="next('successief')">Successief meertalig <i>(Kinderen die eerst één taal leren en pas na ongeveer 2,5 jaar intensief in aanraking komen met het Nederlands) </i></button>
   </div>
 
   <!-- Stap 2 -->
   <div id="step2" class="step">
-    <h3>Hoe vaak is er sprake van twijfel of onvoldoende bij Siméa?</h3>
-    <button onclick="nextSim(0)">0 keer twijfel of onvoldoende</button>
-    <button onclick="nextSim(1)">1 keer twijfel of onvoldoende</button>
-    <button onclick="nextSim(2)">2 keer twijfel of onvoldoende</button>
+    <h3>Wat is de Siméa-score?</h3>
+    <button onclick="nextSim(0)">0 keer "twijfel" of "onvoldoende"</button>
+    <button onclick="nextSim(1)">1 keer "twijfel" of "onvoldoende"</button>
+    <button onclick="nextSim(2)">2 keer "twijfel" of "onvoldoende"</button>
     <div class="nav-buttons">
       <button onclick="goBack('step2')">Terug</button>
     </div>
@@ -43,8 +43,8 @@
   <!-- Stap 3 -->
   <div id="step3" class="step">
     <h3>Wat is de leeftijd van het kind?</h3>
-    <button onclick="nextAge('3-4')">3;0 – 4;0 jaar</button>
-    <button onclick="nextAge('4-6')">4;0 – 6;0 jaar</button>
+    <button onclick="nextAge('3-4')">3;9 – 4;5 jaar</button>
+    <button onclick="nextAge('4-6')">4;6 – 5;11 jaar</button>
     <div class="nav-buttons">
       <button onclick="goBack('step3')">Terug</button>
     </div>
@@ -53,10 +53,10 @@
   <!-- Stap 4 -->
   <div id="step4" class="step">
     <h3>Wat is de ELS-score?</h3>
-    <label><input type="radio" name="els" value="ge24"> ≥ 24 (3;0–4;0 jaar)</label><br>
-    <label><input type="radio" name="els" value="lt24"> < 24 (3;0–4;0 jaar)</label><br>
-    <label><input type="radio" name="els" value="ge25"> ≥ 25 (4;0–6;0 jaar)</label><br>
-    <label><input type="radio" name="els" value="lt25"> < 25 (4;0–6;0 jaar)</label><br>
+    <label><input type="radio" name="els" value="ge24"> ≥ 24 (3;9–4;5 jaar)</label><br>
+    <label><input type="radio" name="els" value="lt24"> < 24 (3;9–4;5 jaar)</label><br>
+    <label><input type="radio" name="els" value="ge25"> ≥ 25 (4;6–5;11 jaar)</label><br>
+    <label><input type="radio" name="els" value="lt25"> < 25 (4;6–5;11 jaar)</label><br>
     <button onclick="checkELS()">Volgende</button>
     <div class="nav-buttons">
       <button onclick="goBack('step4')">Terug</button>
@@ -92,7 +92,7 @@
     function nextSim(value) {
       sim = value;
       if (sim === 0) {
-        showAdvies("Geen 'twijfel' of 'onvoldoende'. Overweeg heroverweging na 6 maanden.");
+        showAdvies("Geen 'twijfel' of 'onvoldoende'. Heroverweging na 6 maanden.");
       } else {
         if (taal === "successief") showStep('step5');
         else showStep('step3');
@@ -120,16 +120,16 @@
 
       if (sim === 1) {
         if (score === "gt71")
-          showAdvies("Onderwijstraject overwegen bij weinig vooruitgang na een half jaar. Siméa en ELS opnieuw invullen.");
+          showAdvies("Onderwijstraject overwegen. Nederlandse taal stimuleren.");
         else if (score === "btw64_71")
-          showAdvies("Onderwijstraject overwegen. Logopedische screening GGD of eerstelijns praktijk overwegen.");
+          showAdvies("Onderwijstraject overwegen. Nederlandse taal stimuleren. Logopedische screening bij GGD of eerstelijns praktijk aan ouders adviseren.");
         else
-          showAdvies("Onderwijstraject + zorgtraject overwegen (mogelijke TOS).");
+          showAdvies("Onderwijstraject + zorgtraject, inclusief uitgebreid diagnostisch onderzoek, overwegen.");
       } else if (sim === 2) {
         if (score === "gt71")
-          showAdvies("Onderwijstraject overwegen. Logopedische screening GGD of eerstelijns praktijk overwegen.");
+          showAdvies("Onderwijstraject + zorgtraject, inclusief uitgebreid diagnostisch onderzoek, adviseren");
         else
-          showAdvies("Onderwijstraject + zorgtraject overwegen.");
+          showAdvies("Onderwijstraject + zorgtraject, inclusief uitgebreid diagnostisch onderzoek, adviseren");
       }
     }
 
@@ -137,9 +137,9 @@
       const isHoog = (elsScore === "ge24" && leeftijd === "3-4") || (elsScore === "ge25" && leeftijd === "4-6");
       if (isHoog) {
         if (sim === 1)
-          showAdvies("Onderwijstraject overwegen bij weinig vooruitgang na een half jaar. Siméa en ELS opnieuw invullen.");
+          showAdvies("Onderwijstraject overwegen bij weinig vooruitgang. Na een half jaar Siméa en ELS opnieuw invullen.");
         else
-          showAdvies("Onderwijstraject + zorgtraject overwegen.");
+          showAdvies("Onderwijstraject overwegen. Logopedische screening bij GGD of eerstelijns praktijk aan ouders adviseren.");
       } else {
         if (sim === 1)
           showAdvies("Onderwijstraject overwegen. Logopedische screening GGD of eerstelijns praktijk overwegen.");
