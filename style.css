@@ -86,13 +86,13 @@ html, body {
 .download-link:hover {
   background-color: #83d2c9;
 }
-.poster-afbeelding {
+#taalAdviesContainer.poster-afbeelding {
   height: 50vh;
   width: auto; /
   object-fit: cover; /* vult de ruimte netjes zonder vervormen */
   transition: transform 0.3s ease; /* zorgt voor vloeiende animatie */
   cursor: pointer;
 }
-.banner-afbeelding:hover {
+#taalAdviesContainer.banner-afbeelding:hover {
   transform: scale(2); 
 }
