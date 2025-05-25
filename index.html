@@ -13,7 +13,193 @@
       <div class="content">
        
         <div class="typeform-container">
-          <div data-tf-live="01JVSX1ZT37NAF97W3BSKWM6H0"></div><script src="//embed.typeform.com/next/embed.js"></script>
+          <div id="taalAdviesContainer">
+  <style>
+    #taalAdviesContainer .step {
+      display: none;
+    }
+    #taalAdviesContainer .step.active {
+      display: block;
+    }
+    #taalAdviesContainer button {
+      margin-top: 10px;
+    }
+  </style>
+
+  <!-- Stap 1: Kies taaltype -->
+  <div id="step1" class="step active">
+    <h3>Kies taaltype</h3>
+    <button onclick="next('1talig')">Eentalig</button>
+    <button onclick="next('simultaan')">Simultaan meertalig</button>
+    <button onclick="next('successief')">Successief meertalig</button>
+  </div>
+
+  <!-- Stap 2: Kies Siméa -->
+  <div id="step2" class="step">
+    <h3>Siméa-indicatie</h3>
+    <button onclick="nextSim(0)">Geen twijfel/onvoldoende</button>
+    <button onclick="nextSim(1)">Twijfel</button>
+    <button onclick="nextSim(2)">Onvoldoende</button>
+  </div>
+
+  <!-- Stap 3: Leeftijd -->
+  <div id="step3" class="step">
+    <h3>Wat is de leeftijd van het kind?</h3>
+    <button onclick="nextAge('3-4')">3-4 jaar</button>
+    <button onclick="nextAge('4-6')">4-6 jaar</button>
+  </div>
+
+  <!-- Stap 4: ELS -->
+  <div id="step4" class="step">
+    <h3>ELS-score</h3>
+    <label><input type="radio" name="els" value="ge24"> ≥ 24 (3-4 jaar)</label><br>
+    <label><input type="radio" name="els" value="ge25"> ≥ 25 (4-6 jaar)</label><br>
+    <label><input type="radio" name="els" value="lt"> Lager</label><br>
+    <button onclick="checkELS()">Volgende</button>
+  </div>
+
+  <!-- Stap 5: ALDeQ -->
+  <div id="step5" class="step">
+    <h3>ALDeQ-score</h3>
+    <label><input type="radio" name="aldeq" value="gt71"> > 71</label><br>
+    <label><input type="radio" name="aldeq" value="btw64_71"> 64–71</label><br>
+    <label><input type="radio" name="aldeq" value="lt64"> < 64</label><br>
+    <button onclick="checkALDeQ()">Toon advies</button>
+  </div>
+
+  <!-- Advies -->
+  <div id="advies" class="step"></div>
+
+  <script>
+    // Alle JavaScript inline zodat het werkt in een container zonder aparte bestanden
+    let taal = "";
+    let sim = 0;
+    let leeftijd = "";
+    let elsScore = "";
+
+    function next(choice) {
+      taal = choice;
+      document.getElementById("step1").classList.remove("active");
+      document.getElementById("step2").classList.add("active");
+    }
+
+    function nextSim(value) {
+      sim = value;
+      document.getElementById("step2").classList.remove("active");
+
+      if (sim === 0) {
+        showAdvies("Geen 'twijfel' of 'onvoldoende'. Overweeg heroverweging na 6 maanden.");
+      } else {
+        if (taal === "successief") {
+          document.getElementById("step5").classList.add("active");
+        } else {
+          document.getElementById("step3").classList.add("active");
+        }
+      }
+    }
+
+    function nextAge(val) {
+      leeftijd = val;
+      document.getElementById("step3").classList.remove("active");
+      document.getElementById("step4").classList.add("active");
+    }
+
+    function checkELS() {
+      const selected = document.querySelector('input[name="els"]:checked');
+      if (!selected) {
+        alert("Selecteer een ELS-score.");
+        return;
+      }
+      elsScore = selected.value;
+      document.getElementById("step4").classList.remove("active");
+
+      if (taal === "1talig") {
+        showAdviesViaELS();
+      } else if (taal === "simultaan") {
+        document.getElementById("step5").classList.add("active");
+      }
+    }
+
+    function checkALDeQ() {
+      const selected = document.querySelector('input[name="aldeq"]:checked');
+      if (!selected) {
+        alert("Selecteer een ALDeQ-score.");
+        return;
+      }
+      const score = selected.value;
+
+      if (sim === 1) {
+        if (score === "gt71") {
+          showAdvies("Onderwijstraject overwegen bij weinig vooruitgang na een half jaar. Siméa en ELS opnieuw invullen.");
+        } else if (score === "btw64_71") {
+          showAdvies("Onderwijstraject overwegen. Logopedische screening GGD of eerstelijns praktijk overwegen.");
+        } else {
+          showAdvies("Onderwijstraject + zorgtraject overwegen (mogelijke TOS).");
+        }
+      } else if (sim === 2) {
+        if (score === "gt71") {
+          showAdvies("Onderwijstraject overwegen. Logopedische screening GGD of eerstelijns praktijk overwegen.");
+        } else {
+          showAdvies("Onderwijstraject + zorgtraject overwegen.");
+        }
+      }
+    }
+
+    function showAdviesViaELS() {
+      if ((leeftijd === "3-4" && elsScore === "ge24") || (leeftijd === "4-6" && elsScore === "ge25")) {
+        if (sim === 1) {
+          showAdvies("Onderwijstraject overwegen bij weinig vooruitgang na een half jaar. Siméa en ELS opnieuw invullen.");
+        } else {
+          showAdvies("Onderwijstraject + zorgtraject overwegen.");
+        }
+      } else {
+        if (sim === 1) {
+          showAdvies("Onderwijstraject overwegen. Logopedische screening GGD of eerstelijns praktijk overwegen.");
+        } else {
+          showAdvies("Onderwijstraject + zorgtraject overwegen.");
+        }
+      }
+    }
+
+    function showAdvies(text) {
+      document.querySelectorAll("#taalAdviesContainer .step").forEach(s => s.classList.remove("active"));
+      const adv = document.getElementById("advies");
+      adv.classList.add("active");
+      adv.innerHTML = `
+        <strong>Advies:</strong><br>${text}<br><br>
+        <button onclick="goBack('advies')">Terug naar start</button>
+      `;
+    }
+
+    function goBack(fromStep) {
+      document.getElementById(fromStep).classList.remove("active");
+      switch (fromStep) {
+        case 'step2':
+          document.getElementById("step1").classList.add("active");
+          break;
+        case 'step3':
+          document.getElementById("step2").classList.add("active");
+          break;
+        case 'step4':
+          document.getElementById("step3").classList.add("active");
+          break;
+        case 'step5':
+          if (taal === "successief") {
+            document.getElementById("step2").classList.add("active");
+          } else if (taal === "simultaan") {
+            document.getElementById("step4").classList.add("active");
+          }
+          break;
+        case 'advies':
+          document.getElementById("step1").classList.add("active");
+          break;
+        default:
+          alert("Kan niet terug.");
+      }
+    }
+  </script>
+</div>
+
         </div>
         
       </div>
@@ -73,7 +259,7 @@
       
   </main>
 
-  <script src="//embed.typeform.com/next/embed.js"></script>
+  
   <script src="script.js"></script>
 </body>
 </html>
