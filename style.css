@@ -92,4 +92,9 @@ html, body {
   object-fit: cover; /* vult de ruimte netjes zonder vervormen */
   display: block;
   margin: 0 auto; /* centreert de afbeelding horizontaal */
+  transition: transform 0.3s ease; /* zorgt voor vloeiende animatie */
+  cursor: pointer;
+}
+#taalAdviesContainer .banner-afbeelding:hover {
+  transform: scale(1.05); /* vergroot de afbeelding met 5% */
 }
