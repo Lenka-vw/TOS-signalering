@@ -86,3 +86,10 @@ html, body {
 .download-link:hover {
   background-color: #83d2c9;
 }
+#taalAdviesContainer .poster-afbeelding {
+  height: 50vh;
+  width: auto; /* of 100% als je het scherm wilt vullen in de breedte */
+  object-fit: cover; /* vult de ruimte netjes zonder vervormen */
+  display: block;
+  margin: 0 auto; /* centreert de afbeelding horizontaal */
+}
