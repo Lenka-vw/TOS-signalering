@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -6,28 +5,6 @@
   <meta name="viewport" content="width=device-width">
   <title>Beslisboom TOS</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
-  <style>
-    body {
-      font-family: sans-serif;
-      max-width: 600px;
-      margin: 2em auto;
-      padding: 1em;
-    }
-    .step {
-      display: none;
-    }
-    .step.active {
-      display: block;
-    }
-    button {
-      margin-top: 1em;
-    }
-    #advies {
-      margin-top: 2em;
-      padding: 1em;
-      background: #eef;
-      border-left: 5px solid #2F9287;
-    }
 </head>
 <body>
   <main class="content-wrapper">
@@ -36,52 +13,7 @@
       <div class="content">
        
         <div class="typeform-container">
-          <h2>Beslisboom TOS</h2>
-
-  <div class="step active" id="step1">
-    <p>Wat is de taalachtergrond van het kind?</p>
-    <button onclick="next('1talig')">1-talig, jonger dan 6 jaar</button><br>
-    <button onclick="next('simultaan')">Simultaan meertalig, jonger dan 6 jaar</button><br>
-    <button onclick="next('successief')">Successief meertalig, 4–11 jaar</button>
-  </div>
-
-  <div class="step" id="step2">
-    <p>Hoeveel keer "twijfel" of "onvoldoende" bij Siméa?</p>
-    <button onclick="nextSim(0)">0 keer</button><br>
-    <button onclick="nextSim(1)">1 keer</button><br>
-    <button onclick="nextSim(2)">2 keer</button><br>
-    <button onclick="goBack('step2')">Terug</button>
-  </div>
-
-  <div class="step" id="step3">
-    <p>Wat is de leeftijd van het kind?</p>
-    <button onclick="nextAge('3-4')">3 jaar en 9 mnd – 4 jaar en 5 mnd</button><br>
-    <button onclick="nextAge('4-6')">4 jaar en 6 mnd – 5 jaar en 11 mnd</button><br>
-    <button onclick="goBack('step3')">Terug</button>
-  </div>
-
-  <div class="step" id="step4">
-    <p>Kies de juiste ELS-score:</p>
-    <label><input type="radio" name="els" value="lt24"> score &lt; 24</label><br>
-    <label><input type="radio" name="els" value="lt25"> score &lt; 25</label><br>
-    <label><input type="radio" name="els" value="ge24"> score ≥ 24</label><br>
-    <label><input type="radio" name="els" value="ge25"> score ≥ 25</label><br>
-    <button onclick="checkELS()">Volgende</button><br>
-    <button onclick="goBack('step4')">Terug</button>
-  </div>
-
-  <div class="step" id="step5">
-    <p>Wat is de ALDeQ-NL score?</p>
-    <label><input type="radio" name="aldeq" value="gt71"> score &gt; 0.71</label><br>
-    <label><input type="radio" name="aldeq" value="btw64_71"> 0.64 &lt; score ≤ 0.71</label><br>
-    <label><input type="radio" name="aldeq" value="le64"> score ≤ 0.64</label><br>
-    <button onclick="checkALDeQ()">Toon advies</button><br>
-    <button onclick="goBack('step5')">Terug</button>
-  </div>
-
-  <div id="advies" class="step">
-    <button onclick="goBack('advies')">Terug naar start</button>
-  </div>
+          <div data-tf-live="01JVSX1ZT37NAF97W3BSKWM6H0"></div><script src="//embed.typeform.com/next/embed.js"></script>
         </div>
         
       </div>
@@ -145,4 +77,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
