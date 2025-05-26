@@ -160,10 +160,11 @@ function berekenSpraakTaal2() {
 
   let uitspraak = "Twijfel";
 
-  if (score >= 7) uitspraak = "Geen twijfel"
-
+  if (score >= 7) {
+    uitspraak = "Geen twijfel"
+  }
   
 
-  const uitslagElement = document.getElementById("uitslagSpraakTaal");
+  const uitslagElement = document.getElementById("uitslagSpraakTaal2");
   uitslagElement.innerHTML = `Totaalscore: ${score}<br>Beoordeling: <strong>${uitspraak}</strong>`;
 }
