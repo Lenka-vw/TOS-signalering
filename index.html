@@ -1,264 +1,33 @@
+
 <!DOCTYPE html>
-<html lang="nl">
+<html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>TOS-signalering</title>
+  <title>Beslisboom TOS</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-  <main class="content-wrapper">
-    <h1>TOS-signalering</h1>
-    <div class="content-container">
-      <div class="content">
+
+  <div class="pdf-container">
+    <h1>Toelichting</h1>
+    <div class="pdf-content">
+      
+      <p>Welkom bij het TOS-pakket – een praktische website voor intern begeleiders in de onderbouw van het basisonderwijs. Deze site helpt je bij het vroegtijdig signaleren van een mogelijke taalontwikkelingsstoornis (TOS) bij jonge leerlingen, én laat zien
+       welke vervolgstappen je kunt overwegen. </p>
+
+     <p> Wat vind je op deze site? </p>
+<ul> <li>Een interactieve vragenlijst, gebaseerd op een aantal signaleringsinstrumenten </li>
+
+<li>Een overzichtelijke sectie met alle handige bestanden en formats </li> 
+
+<li> Een korte, duidelijke presentatie over TOS</li>
+<li> Een beslisboom, die gedownload kan worden en die de basis vormt voor de vragenlijst</li>
+</ul>
        
-        <div id="taalAdviesContainer">
-  <style>
-    #taalAdviesContainer .step { display: none; }
-    #taalAdviesContainer .step.active { display: block; }
-    #taalAdviesContainer button { margin-top: 10px; display: block;}
-    #taalAdviesContainer .nav-buttons { margin-top: 20px; }
-  </style>
-<div id="startScreen" class="step active">
-  <h2>Vragenlijst</h2>
-  <p>Valt de kleuter op aan de hand van signalen op de poster "Heeft Jos 'n TOS?" Vul dan de vragenlijst in en zie snel, welke acties je zou kunnen ondernemen.</p> <p>De vragenlijst kan worden ingevuld voor kinderen van 4 tot en met 6 jaar.</p>
-  <img src="HeeftJosnTOS.webp" alt="Poster Heeft Jos 'n TOS?" class="poster-afbeelding" />
-  <button onclick="startVragenlijst()">Start de vragenlijst</button>
-  
-</div>
-  <!-- Stap 1 -->
-  <div id="step1" class="step">
-    <h3>Welke is van toepassing op het kind?</h3>
-    <button onclick="next('1talig')">Eentalig</button>
-    <button onclick="next('simultaan')">Simultaan meertalig <i>(Kinderen die vanaf geboorte meerdere talen horen en gebruiken)</i></button>
-    <button onclick="next('successief')">Successief meertalig <i>(Kinderen die eerst één taal leren en pas na ongeveer 2,5 jaar intensief in aanraking komen met het Nederlands) </i></button>
-  </div>
-
-  <!-- Stap 2 -->
-  <div id="step2" class="step">
-    <h3>Wat is de Siméa-score?</h3>
-    <button onclick="nextSim(0)">0 keer "twijfel" of "onvoldoende"</button>
-    <button onclick="nextSim(1)">1 keer "twijfel" of "onvoldoende"</button>
-    <button onclick="nextSim(2)">2 keer "twijfel" of "onvoldoende"</button>
-    <div class="nav-buttons">
-      <button onclick="goBack('step2')">Terug</button>
+       
     </div>
   </div>
-
-  <!-- Stap 3 -->
-  <div id="step3" class="step">
-    <h3>Wat is de leeftijd van het kind?</h3>
-    <button onclick="nextAge('3-4')">3;9 – 4;5 jaar</button>
-    <button onclick="nextAge('4-6')">4;6 – 5;11 jaar</button>
-    <div class="nav-buttons">
-      <button onclick="goBack('step3')">Terug</button>
-    </div>
-  </div>
-
-  <!-- Stap 4 -->
-  <div id="step4" class="step">
-    <h3>Wat is de ELS-score?</h3>
-    <label><input type="radio" name="els" value="ge24"> ≥ 24 (3;9–4;5 jaar)</label><br>
-    <label><input type="radio" name="els" value="lt24"> < 24 (3;9–4;5 jaar)</label><br>
-    <label><input type="radio" name="els" value="ge25"> ≥ 25 (4;6–5;11 jaar)</label><br>
-    <label><input type="radio" name="els" value="lt25"> < 25 (4;6–5;11 jaar)</label><br>
-    <button onclick="checkELS()">Volgende</button>
-    <div class="nav-buttons">
-      <button onclick="goBack('step4')">Terug</button>
-    </div>
-  </div>
-
-  <!-- Stap 5 -->
-  <div id="step5" class="step">
-    <h3>Wat is de ALDeQ-score?</h3>
-    <label><input type="radio" name="aldeq" value="gt71"> > 71</label><br>
-    <label><input type="radio" name="aldeq" value="btw64_71"> Tussen 64 – 71</label><br>
-    <label><input type="radio" name="aldeq" value="lt64"> < 64</label><br>
-    <button onclick="checkALDeQ()">Toon advies</button>
-    <div class="nav-buttons">
-      <button onclick="goBack('step5')">Terug</button>
-    </div>
-  </div>
-
-  <!-- Advies -->
-  <div id="advies" class="step"></div>
-
-  <script>
-    let taal = "";
-    let sim = 0;
-    let leeftijd = "";
-    let elsScore = "";
-function startVragenlijst() {
-  document.getElementById("startScreen").classList.remove("active");
-  document.getElementById("step1").classList.add("active");
-}
-
-    function next(choice) {
-      taal = choice;
-      showStep('step2');
-    }
-
-    function nextSim(value) {
-      sim = value;
-      if (sim === 0) {
-        showAdvies("Geen 'twijfel' of 'onvoldoende'. Heroverweging na 6 maanden.");
-      } else {
-        if (taal === "successief") showStep('step5');
-        else showStep('step3');
-      }
-    }
-
-    function nextAge(val) {
-      leeftijd = val;
-      showStep('step4');
-    }
-
-    function checkELS() {
-      const selected = document.querySelector('input[name="els"]:checked');
-      if (!selected) return alert("Selecteer een ELS-score.");
-      elsScore = selected.value;
-
-      if (taal === "1talig") showAdviesViaELS();
-      else showAdviesViaELS();
-    }
-
-    function checkALDeQ() {
-      const selected = document.querySelector('input[name="aldeq"]:checked');
-      if (!selected) return alert("Selecteer een ALDeQ-score.");
-      const score = selected.value;
-
-      if (sim === 1) {
-        if (score === "gt71")
-          showAdvies("Onderwijstraject overwegen. Nederlandse taal stimuleren.");
-        else if (score === "btw64_71")
-          showAdvies("Onderwijstraject overwegen. Nederlandse taal stimuleren. Logopedische screening bij GGD of eerstelijns praktijk aan ouders adviseren.");
-        else
-          showAdvies("Onderwijstraject + zorgtraject, inclusief uitgebreid diagnostisch onderzoek, overwegen.");
-      } else if (sim === 2) {
-        if (score === "gt71")
-          showAdvies("Onderwijstraject + zorgtraject, inclusief uitgebreid diagnostisch onderzoek, adviseren");
-        else
-          showAdvies("Onderwijstraject + zorgtraject, inclusief uitgebreid diagnostisch onderzoek, adviseren");
-      }
-    }
-
-    function showAdviesViaELS() {
-      const isHoog = (elsScore === "ge24" && leeftijd === "3-4") || (elsScore === "ge25" && leeftijd === "4-6");
-      if (isHoog) {
-        if (sim === 1)
-          showAdvies("Onderwijstraject overwegen bij weinig vooruitgang. Na een half jaar Siméa en ELS opnieuw invullen.");
-        else
-          showAdvies("Onderwijstraject overwegen. Logopedische screening bij GGD of eerstelijns praktijk aan ouders adviseren.");
-      } else {
-        if (sim === 1)
-          showAdvies("Onderwijstraject overwegen. Logopedische screening GGD of eerstelijns praktijk overwegen.");
-        else
-          showAdvies("Onderwijstraject + zorgtraject overwegen.");
-      }
-    }
-
-    function showAdvies(text) {
-      hideAll();
-      const adv = document.getElementById("advies");
-      adv.classList.add("active");
-      adv.innerHTML = `
-        <strong>Advies:</strong><br>${text}<br><br>
-        <button onclick="restart()">Opnieuw beginnen</button>
-      `;
-    }
-
-    function showStep(stepId) {
-      hideAll();
-      document.getElementById(stepId).classList.add("active");
-    }
-
-    function hideAll() {
-      document.querySelectorAll("#taalAdviesContainer .step").forEach(s => s.classList.remove("active"));
-    }
-
-    function restart() {
-      taal = ""; sim = 0; leeftijd = ""; elsScore = "";
-      showStep("step1");
-    }
-
-    function goBack(fromStep) {
-      hideAll();
-      switch (fromStep) {
-        case 'step2': showStep('step1'); break;
-        case 'step3': showStep('step2'); break;
-        case 'step4': showStep('step3'); break;
-        case 'step5':
-          if (taal === "successief") showStep('step2');
-          else showStep('step4');
-          break;
-        default: showStep('step1');
-      }
-    }
-  </script>
-
-
-</div>
-        </div>
-      </div>
-   
-    
-
-    <div class="content-container">
-      <div class="content">
-        <p>Ziet groepsleerkracht in de observatieperiode (6-8 weken) nadat de kleuter op school gestart is signalen die aanleiding geven om taal, spraak of communicatief functioneren verder te onderzoeken.Beantwoord dan de vragen en ontdek direct welke acties je kunt overwegen in het signaleringsproces.  </p>
-        
-
-
-
-        <p>Je kunt de beslisboom doorlopen als stroomdiagram of als interactieve vragenlijst. Je ziet: </p>
-        <ul>
-         <li>Welke kenmerken reden kunnen zijn voor verdere observatie </li> 
-<li>Welke lijsten ingevuld kunnen worden (door de leerkracht en/of ouders) </li>
-          <li>Welke lijsten ingevuld kunnen worden (door de leerkracht en/of ouders) </li>
-          <li>Wat mogelijke vervolgstappen zijn (zoals overleg of doorverwijzing) </li>
-
-          
-        </ul>
-
-        
-
-
-
-       <p>De beslisboom is gebaseerd op drie signaleringsinstrumenten (te vinden onder het tabblad <a href="handigebestanden.html">'Bestanden'</a>):  </p> 
-
-        <p> <b>1. Siméa: Vragenlijst signaleren van taal en/of spraakproblemen (4–6 jaar) </b></p>
-
-        <p>Een praktisch hulpmiddel voor groep 1 en 2. De vragenlijst helpt leerkrachten vroegtijdig signalen van spraak- en taalproblemen op te merken en bestaat uit drie domeinen:  </p>
-<ul>
-  <li>Taal en spraak (woordenschat, zinsbouw, verstaanbaarheid) </li>
-  <li>Communicatief functioneren (contact, initiatief, begrijpelijkheid) </li>
-  <li>Handreiking voor vervolgacties (wanneer overleg of verwijzing passend is) </li>
-</ul>
-     <p>De lijst is bedoeld als signaleringsinstrument — niet als diagnostisch middel — en sluit aan bij het dagelijks functioneren in de klas. </p>
-
-       <p><b>2. ALDeQ-NL (Alberta Language Development Questionnaire – Nederlandstalig)  </b></p> 
-
-        Een oudervragenlijst die meertalige taalontwikkeling in kaart brengt. De vragenlijst bevat vier domeinen: 
-<ul> 
-  <li>Taalontwikkeling in de moedertaal</li>
-  <li>Communicatief functioneren </li>
-  <li>Familiaal voorkomen van taalproblemen</li>
-  <li>Algemene ontwikkeling en interesses</li>
-</ul>
-        <p>De ALDeQ-NL wordt samen met ouders ingevuld (in de thuistaal), bij voorkeur in aanwezigheid van een professional. Deze lijst is beschikbaar in meerdere talen en voorzien van een voorleesfunctie. Het instrument helpt bepalen of er ook in de moedertaal sprake
-         is van een achterstand — essentieel bij het onderscheiden van TOS van blootstellingsachterstand.</p> 
-
-        <p><b>3. Early Language Scale (ELS)</b></p> 
-
-        <p>De ELS is een laagdrempelige signaleringslijst met 26 ja/nee-vragen over taalbegrip, taalproductie en communicatie. Ouders, pedagogisch medewerkers of leerkrachten kunnen de lijst invullen. De ELS is taalneutraal en dus ook geschikt voor meertalige kinderen
-         — mits beoordeeld over alle talen. Het biedt snel inzicht en vormt een goede basis voor vervolgacties. </p>
-      </div>
-    </div>
-    
-    <script src="script.js"></script>  
-  </main>
-
-  
-  
+  <script src="script.js"></script>
 </body>
 </html>
