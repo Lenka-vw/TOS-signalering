@@ -160,7 +160,7 @@ function berekenSpraakTaal2() {
 
   let uitspraak = "Twijfel";
 
-  if (score >= 7) {
+  if (score === 8) {
     uitspraak = "Geen twijfel"
   }
   
