@@ -118,3 +118,34 @@ function startVragenlijst() {
         default: showStep('step1');
       }
     }
+
+function berekenSpraakTaal() {
+  let score = 0;
+  for (let i = 1; i <= 7; i++) {
+    const antwoord = document.querySelector(`input[name="q${i}"]:checked`);
+    score += antwoord ? parseInt(antwoord.value) : 0;
+  }
+
+  const leeftijd = document.getElementById("leeftijd").value;
+  if (!leeftijd) {
+    alert("Selecteer de leeftijd van het kind.");
+    return;
+  }
+
+  let uitspraak = "Onvoldoende";
+
+  if (leeftijd === "4") {
+    if (score === 4) uitspraak = "Twijfel voldoende";
+    else if (score >= 5) uitspraak = "Voldoende";
+  } else if (leeftijd === "5") {
+    if (score === 5) uitspraak = "Twijfel";
+    else if (score >= 6) uitspraak = "Voldoende";
+  } else if (leeftijd === "6") {
+    if (score === 6) uitspraak = "Twijfel";
+    else if (score >= 7) uitspraak = "Voldoende";
+  }
+
+  const uitslagElement = document.getElementById("uitslagSpraakTaal");
+  uitslagElement.innerHTML = `Totaalscore: ${score}<br>Beoordeling: <strong>${uitspraak}</strong>`;
+}
+
