@@ -116,6 +116,6 @@ html, body {
 #taalAdviesContainer .nav-buttons {
   margin-top: 20px;
 }
-#taalAdviesContainer .button:hover {
+#taalAdviesContainer button:hover {
   background-color: #83d2c9;
 }
