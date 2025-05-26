@@ -101,7 +101,7 @@ html, body {
   display: block;
 }
 
-#taalAdviesContainer .button {
+#taalAdviesContainer button {
   margin-top: 10px;
   display: block;
   padding: 10px 20px;
