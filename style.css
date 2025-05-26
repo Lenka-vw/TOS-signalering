@@ -101,7 +101,7 @@ html, body {
   display: block;
 }
 
-#taalAdviesContainer button {
+#taalAdviesContainer .button {
   margin-top: 10px;
   display: block;
   padding: 10px 20px;
@@ -115,4 +115,7 @@ html, body {
 
 #taalAdviesContainer .nav-buttons {
   margin-top: 20px;
+}
+#taalAdviesContainer .button:hover {
+  background-color: #83d2c9;
 }
