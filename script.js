@@ -135,7 +135,7 @@ function berekenSpraakTaal() {
   let uitspraak = "Onvoldoende";
 
   if (leeftijd === "4") {
-    if (score === 4) uitspraak = "Twijfel voldoende";
+    if (score === 4) uitspraak = "Twijfel";
     else if (score >= 5) uitspraak = "Voldoende";
   } else if (leeftijd === "5") {
     if (score === 5) uitspraak = "Twijfel";
