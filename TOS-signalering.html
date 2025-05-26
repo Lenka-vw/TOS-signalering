@@ -16,7 +16,7 @@
   <style>
     #taalAdviesContainer .step { display: none; }
     #taalAdviesContainer .step.active { display: block; }
-    #taalAdviesContainer button { margin-top: 10px; display: block; background-color: #2F9287;}
+    #taalAdviesContainer button { margin-top: 10px; display: block; background-color: #9ff5e5;}
     #taalAdviesContainer .nav-buttons { margin-top: 20px; }
   </style>
 <div id="startScreen" class="step active">
@@ -72,9 +72,9 @@
   <!-- Stap 5 -->
   <div id="step5" class="step">
     <h3>Wat is de ALDeQ-score?</h3>
-    <label><input type="radio" name="aldeq" value="gt71"> > 71</label><br>
-    <label><input type="radio" name="aldeq" value="btw64_71"> Tussen 64 – 71</label><br>
-    <label><input type="radio" name="aldeq" value="lt64"> < 64</label><br>
+    <label><input type="radio" name="aldeq" value="gt71"> > 0.71</label><br>
+    <label><input type="radio" name="aldeq" value="btw64_71"> Tussen 0.64 – 0.71</label><br>
+    <label><input type="radio" name="aldeq" value="lt64"> < 0.64 </label><br>
     <button onclick="checkALDeQ()">Toon advies</button>
     <div class="nav-buttons">
       <button onclick="goBack('step5')">Terug</button>
@@ -105,7 +105,7 @@ function startVragenlijst() {
         showAdvies("Geen 'twijfel' of 'onvoldoende'. Heroverweging na 6 maanden.");
       } else {
         if (taal === "successief") showStep('step5');
-        else showStep('step3');
+        else showStep('step4');
       }
     }
 
@@ -144,7 +144,7 @@ function startVragenlijst() {
     }
 
     function showAdviesViaELS() {
-      const isHoog = (elsScore === "ge24" && leeftijd === "3-4") || (elsScore === "ge25" && leeftijd === "4-6");
+      const isHoog = (elsScore === "ge24") || (elsScore === "ge25");
       if (isHoog) {
         if (sim === 1)
           showAdvies("Onderwijstraject overwegen bij weinig vooruitgang. Na een half jaar Siméa en ELS opnieuw invullen.");
@@ -187,7 +187,7 @@ function startVragenlijst() {
       switch (fromStep) {
         case 'step2': showStep('step1'); break;
         case 'step3': showStep('step2'); break;
-        case 'step4': showStep('step3'); break;
+        case 'step4': showStep('step2'); break;
         case 'step5':
           if (taal === "successief") showStep('step2');
           else showStep('step4');
