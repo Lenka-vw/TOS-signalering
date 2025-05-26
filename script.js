@@ -151,7 +151,7 @@ function berekenSpraakTaal() {
 
 function berekenSpraakTaal2() {
   let score = 0;
-  for (let i = 1; i <= 7; i++) {
+  for (let i = 1; i <= 8; i++) {
     const antwoord = document.querySelector(`input[name="q${i}"]:checked`);
     score += antwoord ? parseInt(antwoord.value) : 0;
   }
