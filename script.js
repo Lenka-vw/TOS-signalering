@@ -168,3 +168,24 @@ function berekenSpraakTaal2() {
   const uitslagElement = document.getElementById("uitslagSpraakTaal2");
   uitslagElement.innerHTML = `Totaalscore: ${score}<br>Beoordeling: <strong>${uitspraak}</strong>`;
 }
+
+function berekenELS() {
+  let score = 0;
+  let ingevuld = true;
+
+  for (let i = 1; i <= 26; i++) {
+    const antwoord = document.querySelector(`input[name="q${i}"]:checked`);
+    if (!antwoord) ingevuld = false;
+    score += antwoord ? parseInt(antwoord.value) : 0;
+  }
+
+  if (!ingevuld) {
+    alert("Beantwoord alle 26 vragen.");
+    return;
+  }
+
+ 
+
+  document.getElementById("uitslagELS").innerHTML =
+    `Totaalscore: ${score} van 26<br><strong></strong>`;
+}
