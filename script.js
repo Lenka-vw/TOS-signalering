@@ -149,3 +149,21 @@ function berekenSpraakTaal() {
   uitslagElement.innerHTML = `Totaalscore: ${score}<br>Beoordeling: <strong>${uitspraak}</strong>`;
 }
 
+function berekenSpraakTaal2() {
+  let score = 0;
+  for (let i = 1; i <= 7; i++) {
+    const antwoord = document.querySelector(`input[name="q${i}"]:checked`);
+    score += antwoord ? parseInt(antwoord.value) : 0;
+  }
+
+ 
+
+  let uitspraak = "Twijfel";
+
+  if (score >= 7) uitspraak = "Geen twijfel"
+
+  
+
+  const uitslagElement = document.getElementById("uitslagSpraakTaal");
+  uitslagElement.innerHTML = `Totaalscore: ${score}<br>Beoordeling: <strong>${uitspraak}</strong>`;
+}
