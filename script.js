@@ -67,19 +67,26 @@ function startVragenlijst() {
     }
 
     function showAdviesViaELS() {
-      const isHoog = (elsScore === "ge24") || (elsScore === "ge25");
-      if (isHoog) {
-        if (sim === 1)
-          showAdvies("Onderwijstraject overwegen bij weinig vooruitgang. Na een half jaar Siméa en ELS opnieuw invullen.");
-        else
-          showAdvies("Onderwijstraject overwegen. Logopedische screening bij GGD of eerstelijns praktijk aan ouders adviseren.");
-      } else {
-        if (sim === 1)
-          showAdvies("Onderwijstraject overwegen. Logopedische screening GGD of eerstelijns praktijk overwegen.");
-        else
-          showAdvies("Onderwijstraject + zorgtraject overwegen.");
-      }
-    }
+  const isHoog = (elsScore === "ge24") || (elsScore === "ge25");
+
+  // ✅ NIEUW: specifieke combinatie lage ELS + sim=2
+  if ((elsScore === "lt24" || elsScore === "lt25") && sim === 2) {
+    showAdvies("Onderwijstraject + Zorgtraject, inclusief uitgebreid diagnostisch onderzoek adviseren");
+    return; // Stop hier, geen verdere checks nodig
+  }
+
+  if (isHoog) {
+    if (sim === 1)
+      showAdvies("Onderwijstraject overwegen bij weinig vooruitgang. Na een half jaar Siméa en ELS opnieuw invullen.");
+    else
+      showAdvies("Onderwijstraject overwegen. Logopedische screening bij GGD of eerstelijns praktijk aan ouders adviseren.");
+  } else {
+    if (sim === 1)
+      showAdvies("Onderwijstraject overwegen. Logopedische screening GGD of eerstelijns praktijk overwegen.");
+    else
+      showAdvies("Onderwijstraject + zorgtraject overwegen.");
+  }
+}
 
     function showAdvies(text) {
       hideAll();
